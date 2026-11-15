@@ -1,0 +1,36 @@
+/**
+ * 数邻 —— 样式
+ */
+
+.board-svg .dm-board-bg {
+  fill: #fffdf8;
+  stroke: #2b3a3f;
+  stroke-width: 1.6;
+}
+
+.board-svg .dm-cell {
+  fill: #f4ead2;
+  stroke: #c8bfa9;
+  stroke-width: 0.8;
+}
+
+.board-svg .dm-digit {
+  fill: #263338;
+  font-family: var(--mono);
+  font-weight: 800;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  user-select: none;
+}
+
+.board-svg .dm-digit.bad {
+  fill: var(--error);
+}
+
+.board-svg .dm-domino {
+  fill: none;
+  stroke: #2f6f8f;
+  stroke-width: 3;
+  pointer-events: none;
+}
