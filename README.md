@@ -84,3 +84,29 @@ npm run check     # 审计题库
 npm run verify    # 参考解、逻辑回放与交互验证
 npm run audit     # 逐题审计逻辑解题
 ```
+
+## 图片识图导入
+
+```bash
+# 预览：识别题图网格与管道接口，不写入题库
+npm run import-image -- month.png
+
+# 识别并追加到题库（题图一般就是初始打乱状态，导入后即可旋转游玩）
+npm run import-image -- month.png --append --name "识图 · 40×60"
+
+# 额外尝试求解 / 唯一性检查（大盘面很慢，超时只警告）
+npm run import-image -- month.png --verify --budget 20000
+```
+
+| 参数 | 说明 |
+|------|------|
+| `--name 名称` / `--id ID` / `--series 系列` | 题库条目信息 |
+| `--append` | 写入 `src/game/puzzles-data.ts` |
+| `--verify` | 额外尝试求解并检查唯一解（40×60 这类大盘面通常超时，只给警告） |
+| `--budget N` | 求解节点上限（默认 15000，`--verify` 时可调大） |
+| `--dry` | 只识别并打印接口掩码，不求解、不写入 |
+
+- 识别原理：浅灰网格线投影定位棋盘 → 每格四条边中点只在「本格一侧」采样深色管道 → 得到 N/E/S/W 接口掩码（N=1 E=2 S=4 W=8）。
+- 题图一般就是「初始打乱状态」：导入时把观察到的接口当作 tiles、`givens` 全空，玩家旋转即可；如果截图上已是解答状态，也会按当前旋转导入。
+- `npm run gen` 会重新生成 `puzzles-data.ts` 并覆盖导入内容，导入后请留意。
+
