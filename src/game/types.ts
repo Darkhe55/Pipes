@@ -19,6 +19,16 @@ export function opposite(dir: number): number {
   return (dir + 2) % 4
 }
 
+/** 4 位掩码里 1 的个数（= 管道接口数 / 候选角度数） */
+export function popcount4(m: number): number {
+  let n = 0
+  while (m) {
+    m &= m - 1
+    n++
+  }
+  return n
+}
+
 export function rotateMask(mask: number, r: number): number {
   let m = mask & 15
   for (let k = 0; k < ((r % 4) + 4) % 4; k++) {
