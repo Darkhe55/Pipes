@@ -51,7 +51,7 @@ export function cycleValue(state: GameState, target: HitTarget): number {
 export function rightClickValue(state: GameState, target: HitTarget): number {
   const s = asPipesState(state)
   const given = s.givens[target.index] ?? -1
-  return given >= 0 ? given : 0
+  return given >= 0 ? given : ((s.rotations[target.index] ?? 0) + 3) % 4
 }
 
 export function applyMove(state: GameState, move: Move): void {
